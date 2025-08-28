@@ -2,6 +2,7 @@
 
 ActiveSupport.on_load(:action_dispatch_system_test_case) do
   require "capybara"
+  require "capybara-lockstep"
   require "capybara/rails"
   require "capybara/rspec"
 
