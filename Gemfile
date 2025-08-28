@@ -11,6 +11,7 @@ gem "tzinfo-data", platforms: %i[ windows jruby ]
 gem "bootsnap", require: false
 
 group :development, :test do
+  gem "dotenv", ">= 3.0"
   gem "rspec-rails"
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
   gem "rubocop-rails-omakase", require: false
