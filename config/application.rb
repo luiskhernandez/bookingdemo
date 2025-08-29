@@ -39,7 +39,10 @@ module Bookingdemo
     config.time_zone = "America/Bogota"
     # config.eager_load_paths << Rails.root.join("extras")
 
-    # Don't generate system test files.
-    config.generators.system_tests = nil
+    # Configure generators to use UUIDs by default
+    config.generators do |g|
+      g.orm :active_record, primary_key_type: :uuid
+      g.system_tests = nil
+    end
   end
 end

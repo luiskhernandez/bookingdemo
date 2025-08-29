@@ -29,3 +29,5 @@ group :test do
   gem "selenium-webdriver", require: false
   gem "capybara", require: false
 end
+
+gem "devise", "~> 4.9"
