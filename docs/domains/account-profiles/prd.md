@@ -58,7 +58,12 @@ This is the foundation for the booking, availability, and payment features.
 
 ## 5. User Stories
 
-### 5.1 Students
+### 5.1 New Users
+
+* *As a new user, I want to select my intended role (Tutor or Student) from the home page* so that I can start the appropriate sign-up process.
+* *As a new user who selected a role, I want to be automatically directed to the appropriate onboarding flow after sign-up* so that I can complete my profile setup seamlessly.
+
+### 5.2 Students
 
 * *As a Student, I want to sign up and create my profile* so that I can establish my presence on the platform.
   * **Future Context:** Profile will be used for booking lessons once booking system is released (Phase 2)
@@ -66,20 +71,25 @@ This is the foundation for the booking, availability, and payment features.
 * *As a Student, I want to access a dashboard* so that I can view and manage my student profile.
   * **Future Context:** Dashboard will display booked lessons in Phase 2
 
-### 5.2 Tutors
+### 5.3 Tutors
 
 * *As a Tutor, I want to sign up and create my teaching profile* so that I can establish my teaching presence on the platform.
 * *As a Tutor, I want to define at least one LessonType* (duration, title) so that my offerings are ready when booking opens.
 * *As a Tutor, I want a dashboard* where I can manage my profile and lesson types.
   * **Future Context:** Dashboard will show bookings and availability in Phase 2
 
-### 5.3 Dual-role Users
+### 5.4 Dual-role Users
 
 * *As a person who is both a Tutor and a Student, I want to switch between roles* without logging out/in again.
 * *As a dual-role user, I want my profiles separated* so that my Student and Tutor contexts remain independent.
   * **Future Context:** Bookings made as Student won't affect Tutor availability (Phase 2)
 
-### 5.4 System/Admin
+### 5.5 All Authenticated Users
+
+* *As a signed-in user, I want to sign out from any page* so that I can securely end my session.
+* *As a signed-in user, I want a clear sign out option on my dashboard* so that I can easily log out when needed.
+
+### 5.6 System/Admin
 
 * *As the system, I need to ensure only the profile owner can access their dashboards* (authorization).
 * *As the system, I need to restrict a Tutor to one LessonType unless explicitly allowed* (guardrail).
@@ -92,30 +102,48 @@ This is the foundation for the booking, availability, and payment features.
 
    * Users register/login with email + password.
    * Password reset and email uniqueness required.
-2. **Profile Management**
+   * Sign out functionality available from all authenticated pages.
+   * Sign out button prominently displayed on user dashboards.
+
+2. **Role Selection**
+
+   * Home page displays role selection options for non-authenticated users.
+   * Two distinct paths: "Become a Tutor" and "Become a Student".
+   * Role selection passes role parameter to registration flow.
+   * Selected role is preserved through the sign-up process via session storage.
+
+3. **Profile Management**
 
    * Each User may have:
-
      * 0–1 Student profile
      * 0–1 Tutor profile
    * Profiles are optional and can be created later via onboarding.
-3. **Context Switching**
+   * Users can have both profiles simultaneously.
+
+4. **Context Switching**
 
    * Session-based toggle to act as Student or Tutor.
    * Default context auto-selected if user has only one profile.
-4. **Onboarding**
+   * Clear visual indicators for current active context.
 
+5. **Onboarding**
+
+   * Automatic redirect to role-specific onboarding after sign-up based on selected role.
    * Tutor onboarding requires display name, timezone, bio.
    * Student onboarding requires first/last name.
-   * Creating a Tutor automatically generates a default LessonType (60m “Standard Class”).
-5. **LessonTypes**
+   * Creating a Tutor automatically generates a default LessonType (60m "Standard Class").
+   * If no role was pre-selected, users are redirected to home page after sign-up.
+
+6. **LessonTypes**
 
    * A Tutor has one LessonType by default.
    * System prevents adding a second LessonType unless `allow_multi_offers` flag is set.
-6. **Authorization**
+
+7. **Authorization**
 
    * Tutors can only manage their own profiles and LessonTypes.
    * Students can only manage their own profile.
+   * Unauthenticated users cannot access dashboards or profile management pages.
 
 ---
 
@@ -140,11 +168,15 @@ This is the foundation for the booking, availability, and payment features.
 The feature will be considered complete when:
 
 * Users can register and authenticate with email and password
+* Users can select their intended role (Tutor or Student) from the home page before sign-up
+* System automatically redirects users to appropriate onboarding flow after sign-up based on role selection
+* Users can sign out from their dashboard and other authenticated pages
 * Users can create both Tutor and Student profiles independently
 * Users can switch between Tutor and Student contexts seamlessly
 * Tutor onboarding creates a teaching profile and default lesson offering
 * Student onboarding creates a learning profile
 * Access controls prevent users from accessing others' profiles
 * System prevents duplicate accounts for multi-role users
+* Role selection is preserved through the entire sign-up and onboarding process
 
 **Note:** Technical implementation details are covered in the [Implementation Plan](./plan.md).
