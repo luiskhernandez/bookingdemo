@@ -97,7 +97,7 @@ This is the foundation for the booking, availability, and payment features.
    * Each User may have:
 
      * 0–1 Student profile
-     * 0–1 Tutor (Tutor) profile
+     * 0–1 Tutor profile
    * Profiles are optional and can be created later via onboarding.
 3. **Context Switching**
 
@@ -135,20 +135,16 @@ This is the foundation for the booking, availability, and payment features.
 
 ---
 
-## 9. Dependencies
+## 9. Acceptance Criteria
 
-* Rails 8 + PostgreSQL (UUID, citext).
-* Devise (auth).
-* Pundit (authorization).
-* RSpec + Capybara (test coverage).
+The feature will be considered complete when:
 
----
+* Users can register and authenticate with email and password
+* Users can create both Tutor and Student profiles independently
+* Users can switch between Tutor and Student contexts seamlessly
+* Tutor onboarding creates a teaching profile and default lesson offering
+* Student onboarding creates a learning profile
+* Access controls prevent users from accessing others' profiles
+* System prevents duplicate accounts for multi-role users
 
-## 10. Deliverables
-
-* One User model with optional Student and Tutor profiles.
-* Tutor onboarding that creates a default LessonType.
-* Context switching (session-based).
-* Guardrails for LessonTypes (one by default).
-* Dashboards for Tutor and Student.
-* RSpec + Capybara test coverage.
+**Note:** Technical implementation details are covered in the [Implementation Plan](./plan.md).
