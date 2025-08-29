@@ -1,3 +1,94 @@
 <% provide(:title, "Home") %>
-<p>Find me in app/views/home/index.html.erb</p>
-<p>Stimulus says, <i data-controller=hello></i></p>
+<div class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+  <div class="container mx-auto px-4 py-16">
+    <!-- Header Section -->
+    <div class="text-center mb-12">
+      <h1 class="text-5xl font-extrabold text-gray-900 mb-4 drop-shadow-sm">
+        Welcome to <span class="text-indigo-600">Booking Demo</span>
+      </h1>
+      <p class="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
+        Testing Tailwind CSS v4 integration with comprehensive utility classes
+      </p>
+    </div>
+
+    <!-- Card Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+      <!-- Card 1: Status -->
+      <div class="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 p-6 border-l-4 border-green-500">
+        <div class="flex items-center mb-4">
+          <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+            <span class="text-green-600 text-xl font-bold">✓</span>
+          </div>
+          <h3 class="ml-4 text-lg font-semibold text-gray-800">Installation Status</h3>
+        </div>
+        <p class="text-gray-600 text-sm">Tailwind CSS v4 successfully installed and configured</p>
+      </div>
+
+      <!-- Card 2: Stimulus -->
+      <div class="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 p-6 border-l-4 border-blue-500">
+        <div class="flex items-center mb-4">
+          <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+            <span class="text-blue-600 text-xl font-bold">⚡</span>
+          </div>
+          <h3 class="ml-4 text-lg font-semibold text-gray-800">Stimulus Integration</h3>
+        </div>
+        <p class="text-gray-600 text-sm">
+          Stimulus says: <i data-controller="hello" class="font-semibold text-blue-600 not-italic"></i>
+        </p>
+      </div>
+
+      <!-- Card 3: Features -->
+      <div class="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 p-6 border-l-4 border-purple-500">
+        <div class="flex items-center mb-4">
+          <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
+            <span class="text-purple-600 text-xl font-bold">🎨</span>
+          </div>
+          <h3 class="ml-4 text-lg font-semibold text-gray-800">Features Tested</h3>
+        </div>
+        <ul class="text-gray-600 text-sm space-y-1">
+          <li>• Responsive grid layouts</li>
+          <li>• Color utilities & gradients</li>
+          <li>• Typography & spacing</li>
+          <li>• Hover effects & transitions</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Interactive Section -->
+    <div class="bg-white rounded-2xl shadow-xl p-8 mb-8">
+      <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Interactive Elements</h2>
+      
+      <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
+        <button class="px-6 py-3 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700 transition-colors duration-200 shadow-md hover:shadow-lg transform hover:scale-105">
+          Primary Button
+        </button>
+        <button class="px-6 py-3 bg-white text-indigo-600 font-medium rounded-lg border-2 border-indigo-600 hover:bg-indigo-50 transition-colors duration-200">
+          Secondary Button
+        </button>
+        <button class="px-6 py-3 bg-gray-200 text-gray-700 font-medium rounded-lg hover:bg-gray-300 transition-colors duration-200">
+          Disabled Style
+        </button>
+      </div>
+
+      <div class="bg-gradient-to-r from-green-100 to-blue-100 rounded-lg p-6 border border-gray-200">
+        <div class="flex items-center space-x-4">
+          <div class="w-16 h-16 bg-gradient-to-br from-green-400 to-blue-500 rounded-full flex items-center justify-center">
+            <span class="text-white text-2xl font-bold">🚀</span>
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold text-gray-800 mb-1">Tailwind CSS v4 Ready!</h3>
+            <p class="text-gray-600 text-sm">All utility classes are working correctly with Vite integration</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-center text-gray-500 text-sm">
+      <div class="border-t border-gray-200 pt-6">
+        <p>Built with Rails 8, Vite, and Tailwind CSS v4</p>
+        <p class="mt-2">Location: <code class="bg-gray-100 px-2 py-1 rounded text-xs">app/views/home/index.html.erb</code></p>
+      </div>
+    </footer>
+  </div>
+</div>

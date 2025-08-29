@@ -1,3 +1,13 @@
+@import "tailwindcss";
+
+/* Configure content sources using @source directive */
+@source "../../../app/views/**/*.html.erb";
+@source "../../../app/views/**/*.rb";
+@source "../../../app/helpers/**/*.rb";
+@source "../controllers/**/*.{js,ts}";
+@source "../components/**/*.{js,ts}";
+
+/* Your existing CSS imports */
 @import "modern-normalize";
-@import "reset";
-@import "base";
+@import "./reset.css";
+@import "./base.css";
