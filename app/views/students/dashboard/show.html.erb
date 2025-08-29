@@ -1,20 +1,268 @@
-<div class="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-  <div class="max-w-4xl mx-auto">
-    <h1 class="text-3xl font-bold text-gray-900 mb-8">Student Dashboard</h1>
-    
-    <div class="bg-white shadow rounded-lg p-6">
-      <h2 class="text-xl font-semibold mb-4">Welcome, <%= current_user.student.first_name %> <%= current_user.student.last_name %>!</h2>
-      
-      <div class="bg-purple-50 p-4 rounded-lg">
-        <h3 class="font-medium text-purple-900 mb-2">Your Profile</h3>
-        <p class="text-sm text-purple-700 mb-2"><strong>Name:</strong> <%= current_user.student.first_name %> <%= current_user.student.last_name %></p>
-        <p class="text-sm text-purple-700 mb-2"><strong>Email:</strong> <%= current_user.email %></p>
-        <p class="text-sm text-purple-700"><strong>Member Since:</strong> <%= current_user.created_at.strftime("%B %Y") %></p>
+<% content_for :page_title, "Student Dashboard" %>
+<% content_for :user_name, "#{@student.first_name} #{@student.last_name}" %>
+
+<div class="min-h-screen bg-gray-50">
+  <%= render 'shared/dashboard_header' %>
+  
+  <main class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+    <!-- Stats Overview -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+      <div class="bg-white overflow-hidden shadow rounded-lg">
+        <div class="p-5">
+          <div class="flex items-center">
+            <div class="flex-shrink-0">
+              <div class="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center">
+                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                </svg>
+              </div>
+            </div>
+            <div class="ml-5 w-0 flex-1">
+              <dl>
+                <dt class="text-sm font-medium text-gray-500 truncate">Available Tutors</dt>
+                <dd class="text-lg font-medium text-gray-900"><%= Tutor.joins(:lesson_types).where(lesson_types: { active: true }).distinct.count %></dd>
+              </dl>
+            </div>
+          </div>
+        </div>
       </div>
       
-      <div class="mt-6">
-        <p class="text-gray-600">This is your student dashboard. More features will be added in future milestones.</p>
+      <div class="bg-white overflow-hidden shadow rounded-lg">
+        <div class="p-5">
+          <div class="flex items-center">
+            <div class="flex-shrink-0">
+              <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
+                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                </svg>
+              </div>
+            </div>
+            <div class="ml-5 w-0 flex-1">
+              <dl>
+                <dt class="text-sm font-medium text-gray-500 truncate">Lesson Types</dt>
+                <dd class="text-lg font-medium text-gray-900"><%= LessonType.where(active: true).count %></dd>
+              </dl>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="bg-white overflow-hidden shadow rounded-lg">
+        <div class="p-5">
+          <div class="flex items-center">
+            <div class="flex-shrink-0">
+              <div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
+                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+              </div>
+            </div>
+            <div class="ml-5 w-0 flex-1">
+              <dl>
+                <dt class="text-sm font-medium text-gray-500 truncate">Profile Status</dt>
+                <dd class="text-lg font-medium text-gray-900">Active</dd>
+              </dl>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
+    
+    <!-- Main Content Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <!-- Profile Information -->
+      <div class="lg:col-span-1">
+        <div class="bg-white shadow rounded-lg">
+          <div class="px-4 py-5 sm:p-6">
+            <h3 class="text-lg font-medium text-gray-900 mb-4">Your Profile</h3>
+            
+            <div class="space-y-4">
+              <div>
+                <label class="text-sm font-medium text-gray-500">Full Name</label>
+                <p class="mt-1 text-sm text-gray-900"><%= @student.first_name %> <%= @student.last_name %></p>
+              </div>
+              
+              <div>
+                <label class="text-sm font-medium text-gray-500">Email</label>
+                <p class="mt-1 text-sm text-gray-900"><%= current_user.email %></p>
+              </div>
+              
+              <div>
+                <label class="text-sm font-medium text-gray-500">Timezone</label>
+                <p class="mt-1 text-sm text-gray-900"><%= current_user.timezone %></p>
+              </div>
+              
+              <div>
+                <label class="text-sm font-medium text-gray-500">Member Since</label>
+                <p class="mt-1 text-sm text-gray-900"><%= current_user.created_at.strftime("%B %Y") %></p>
+              </div>
+              
+              <div>
+                <label class="text-sm font-medium text-gray-500">Account Type</label>
+                <p class="mt-1 text-sm text-gray-900">Student</p>
+              </div>
+            </div>
+            
+            <div class="mt-6">
+              <button class="w-full bg-purple-600 hover:bg-purple-700 text-white font-medium py-2 px-4 rounded-md transition-colors">
+                Edit Profile
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Browse Tutors -->
+      <div class="lg:col-span-2">
+        <div class="bg-white shadow rounded-lg">
+          <div class="px-4 py-5 sm:p-6">
+            <div class="flex justify-between items-center mb-4">
+              <h3 class="text-lg font-medium text-gray-900">Available Tutors</h3>
+              <div class="flex space-x-2">
+                <input type="text" placeholder="Search tutors..." class="block w-48 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm">
+                <select class="block rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm">
+                  <option>All Subjects</option>
+                  <option>Mathematics</option>
+                  <option>Science</option>
+                  <option>Languages</option>
+                  <option>Programming</option>
+                </select>
+              </div>
+            </div>
+            
+            <div class="space-y-4">
+              <% Tutor.joins(:lesson_types).where(lesson_types: { active: true }).distinct.limit(5).each do |tutor| %>
+                <div class="border border-gray-200 rounded-lg p-4 hover:bg-gray-50 transition-colors">
+                  <div class="flex justify-between items-start">
+                    <div class="flex-1">
+                      <div class="flex items-center space-x-3">
+                        <div class="flex-shrink-0">
+                          <div class="w-10 h-10 bg-indigo-500 rounded-full flex items-center justify-center">
+                            <span class="text-white font-medium text-sm"><%= tutor.display_name.first %></span>
+                          </div>
+                        </div>
+                        <div>
+                          <h4 class="text-base font-medium text-gray-900"><%= tutor.display_name %></h4>
+                          <p class="text-sm text-gray-600"><%= tutor.timezone %></p>
+                        </div>
+                      </div>
+                      
+                      <div class="mt-3">
+                        <p class="text-sm text-gray-700 mb-2"><%= truncate(tutor.bio, length: 120) %></p>
+                        
+                        <div class="flex flex-wrap gap-2">
+                          <% tutor.lesson_types.where(active: true).limit(3).each do |lesson_type| %>
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800">
+                              <%= lesson_type.title %> (<%= lesson_type.duration_minutes %>min)
+                            </span>
+                          <% end %>
+                          <% if tutor.lesson_types.where(active: true).count > 3 %>
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+                              +<%= tutor.lesson_types.where(active: true).count - 3 %> more
+                            </span>
+                          <% end %>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div class="flex flex-col space-y-2 ml-4">
+                      <button class="bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-1.5 rounded text-sm font-medium transition-colors">
+                        View Profile
+                      </button>
+                      <button class="bg-green-600 hover:bg-green-700 text-white px-3 py-1.5 rounded text-sm font-medium transition-colors">
+                        Book Lesson
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+              
+              <% if Tutor.joins(:lesson_types).where(lesson_types: { active: true }).distinct.count == 0 %>
+                <div class="text-center py-8">
+                  <svg class="w-12 h-12 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                  </svg>
+                  <p class="text-gray-500 text-sm">No tutors available at the moment. Check back later!</p>
+                </div>
+              <% else %>
+                <div class="text-center pt-4">
+                  <button class="text-indigo-600 hover:text-indigo-900 text-sm font-medium">
+                    View All Tutors (<%= Tutor.joins(:lesson_types).where(lesson_types: { active: true }).distinct.count %>)
+                  </button>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Recent Activity & Quick Actions -->
+    <div class="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <!-- Recent Activity -->
+      <div class="bg-white shadow rounded-lg">
+        <div class="px-4 py-5 sm:p-6">
+          <h3 class="text-lg font-medium text-gray-900 mb-4">Recent Activity</h3>
+          
+          <div class="space-y-3">
+            <div class="flex items-center space-x-3 text-sm">
+              <div class="flex-shrink-0">
+                <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                  <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                  </svg>
+                </div>
+              </div>
+              <div class="flex-1">
+                <p class="text-gray-900">Created student profile</p>
+                <p class="text-gray-500"><%= time_ago_in_words(current_user.created_at) %> ago</p>
+              </div>
+            </div>
+            
+            <div class="text-center py-6">
+              <p class="text-gray-500 text-sm">No recent lessons or bookings yet. Start by browsing available tutors!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Quick Actions -->
+      <div class="bg-white shadow rounded-lg">
+        <div class="px-4 py-5 sm:p-6">
+          <h3 class="text-lg font-medium text-gray-900 mb-4">Quick Actions</h3>
+          
+          <div class="space-y-3">
+            <button class="w-full flex items-center justify-start px-4 py-3 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 transition-colors">
+              <svg class="w-5 h-5 mr-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+              </svg>
+              Browse All Tutors
+            </button>
+            
+            <button class="w-full flex items-center justify-start px-4 py-3 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 transition-colors">
+              <svg class="w-5 h-5 mr-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+              </svg>
+              Book a Lesson
+            </button>
+            
+            <button class="w-full flex items-center justify-start px-4 py-3 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 transition-colors">
+              <svg class="w-5 h-5 mr-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3a4 4 0 118 0v4m-4 12v-3m0 3h0m0-3v3z"></path>
+              </svg>
+              View My Profile
+            </button>
+            
+            <button class="w-full flex items-center justify-start px-4 py-3 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 transition-colors">
+              <svg class="w-5 h-5 mr-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+              </svg>
+              Settings
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
 </div>

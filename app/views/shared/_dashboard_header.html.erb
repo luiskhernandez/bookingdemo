@@ -1,0 +1,44 @@
+<header class="bg-white shadow">
+  <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center">
+      <div>
+        <% if content_for?(:breadcrumbs) %>
+          <div class="mb-2">
+            <%= render 'shared/breadcrumbs' %>
+          </div>
+        <% end %>
+        <h1 class="text-3xl font-bold text-gray-900"><%= yield :page_title %></h1>
+        <p class="mt-1 text-sm text-gray-600">Welcome back, <%= yield :user_name %></p>
+      </div>
+      
+      <div class="flex items-center space-x-4">
+        <!-- Context Switch Menu -->
+        <div class="relative">
+          <select onchange="window.location.href=this.value" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm">
+            <option value="">Switch Context</option>
+            <% if current_user.tutor.present? %>
+              <option value="<%= tutor_dashboard_path %>" <%= 'selected' if params[:controller] == 'tutors/dashboard' %>>Tutor Dashboard</option>
+            <% else %>
+              <option value="<%= new_onboarding_tutor_path %>">Create Tutor Profile</option>
+            <% end %>
+            
+            <% if current_user.student.present? %>
+              <option value="<%= student_dashboard_path %>" <%= 'selected' if params[:controller] == 'students/dashboard' %>>Student Dashboard</option>
+            <% else %>
+              <option value="<%= new_onboarding_student_path %>">Create Student Profile</option>
+            <% end %>
+            
+            <option value="<%= root_path %>">General Mode</option>
+          </select>
+        </div>
+        
+        <!-- User Menu -->
+        <div class="flex items-center space-x-2">
+          <span class="text-sm text-gray-700"><%= current_user.email %></span>
+          <%= button_to "Sign Out", destroy_user_session_path, method: :delete, 
+                class: "bg-gray-600 hover:bg-gray-700 text-white px-3 py-2 rounded-md text-sm font-medium transition-colors" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>

@@ -4,10 +4,12 @@ class Onboarding::StudentsController < ApplicationController
 
   def new
     @student = current_user.build_student
+    authorize @student, :create?
   end
 
   def create
     @student = current_user.build_student(student_params)
+    authorize @student, :create?
     
     if @student.save
       session[:acting_as] = 'student'

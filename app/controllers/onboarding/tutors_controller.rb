@@ -4,10 +4,12 @@ class Onboarding::TutorsController < ApplicationController
 
   def new
     @tutor = current_user.build_tutor
+    authorize @tutor, :create?
   end
 
   def create
     @tutor = current_user.build_tutor(tutor_params)
+    authorize @tutor, :create?
     
     ActiveRecord::Base.transaction do
       @tutor.save!

@@ -123,6 +123,8 @@ GEM
     factory_bot_rails (6.5.0)
       factory_bot (~> 6.5)
       railties (>= 6.1.0)
+    faker (3.5.2)
+      i18n (>= 1.8.11, < 2)
     globalid (1.2.1)
       activesupport (>= 6.1)
     i18n (1.14.7)
@@ -207,6 +209,13 @@ GEM
     public_suffix (6.0.2)
     puma (6.6.1)
       nio4r (~> 2.0)
+    pundit (2.5.0)
+      activesupport (>= 3.0.0)
+    pundit-matchers (4.0.0)
+      rspec-core (~> 3.12)
+      rspec-expectations (~> 3.12)
+      rspec-mocks (~> 3.12)
+      rspec-support (~> 3.12)
     racc (1.8.1)
     rack (3.2.0)
     rack-proxy (0.7.7)
@@ -376,10 +385,13 @@ DEPENDENCIES
   devise (~> 4.9)
   dotenv (>= 3.0)
   factory_bot_rails
+  faker (~> 3.5)
   jbuilder
   letter_opener
   pg (~> 1.1)
   puma (>= 5.0)
+  pundit (~> 2.5)
+  pundit-matchers (~> 4.0)
   rails (~> 8.0.2, >= 8.0.2.1)
   rspec-rails
   rubocop-rails-omakase

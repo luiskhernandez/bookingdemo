@@ -2,9 +2,10 @@ require 'rails_helper'
 
 RSpec.describe "Tutors::Dashboards", type: :request do
   describe "GET /show" do
-    it "returns http success" do
-      get "/tutors/dashboard/show"
-      expect(response).to have_http_status(:success)
+    it "redirects to login when not authenticated" do
+      get "/tutor/dashboard"
+      expect(response).to have_http_status(:redirect)
+      expect(response).to redirect_to(new_user_session_path)
     end
   end
 

@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, controllers: {
+    registrations: 'users/registrations'
+  }
   root "home#index"
 
   # Onboarding routes
@@ -14,6 +16,11 @@ Rails.application.routes.draw do
   # Dashboard routes
   get "tutor/dashboard", to: "tutors/dashboard#show", as: :tutor_dashboard
   get "student/dashboard", to: "students/dashboard#show", as: :student_dashboard
+
+  # Tutor lesson type management
+  namespace :tutors do
+    resources :lesson_types, except: [:show]
+  end
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.

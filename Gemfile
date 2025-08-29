@@ -31,3 +31,9 @@ group :test do
 end
 
 gem "devise", "~> 4.9"
+
+gem "pundit", "~> 2.5"
+
+gem "pundit-matchers", "~> 4.0", :group => :test
+
+gem "faker", "~> 3.5", :group => :test
