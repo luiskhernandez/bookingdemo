@@ -1,7 +1,7 @@
 # Product Requirements Document (PRD) — Multi-Role User Profiles
 
 **Document ID:** PRD-2025-02-UM
-**Related Specs:** [2025-02-UM Multi-Role User Profiles](../../engineering/specs/2025-02-29-multi-role-user-profiles.md)
+**Related Plan:** [Implementation Plan](./plan.md)
 **Status:** Draft
 **Owner:** \[Presto]
 **Last Updated:** 2025-02-29

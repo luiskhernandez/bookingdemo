@@ -1,4 +1,4 @@
-# Technical Implementation Plan (TIP) — Multi-Role User Profiles
+# Technical Spec — Multi-Role User Profiles
 
 **Document ID:** TIP-2025-02-UM
 **Related PRD:** [PRD-2025-02-UM Multi-Role User Profiles](../../product/prds/2025-multi-role-user-profiles.md)
@@ -12,7 +12,7 @@
 
 **Goal:** Deliver user management where a single account can act as **Tutor** and **Student**, with a default single **LessonType** per Tutor (multi-offer optional), establishing the foundation for future phases.
 
-**Out of scope (this TIP):** 
+**Out of scope (this TIP):**
 * Scheduling availability and booking system (Phase 2)
 * Payment integration (Phase 3)
 * Reviews/ratings (Phase 4)
@@ -258,10 +258,6 @@
 ## 13. Rollout Plan
 
 * Dev environment → seed users → manual QA (checklist ties to Acceptance Criteria)
-* CI runs RSpec + Capybara on every PR
-* Staging deploy with seeded accounts
-* Production after sign-off
-
 ---
 
 ## 14. Definition of Done (DoD) Checklist
@@ -273,7 +269,7 @@
 * [ ] LessonType guardrails enforced
 * [ ] Pundit policies applied in controllers
 * [ ] Seeds present and documented
-* [ ] RSpec suite green locally and in CI (model + request + system)
+* [ ] RSpec suite green locally (model + request + system)
 * [ ] README updated (setup, run, test)
 * [ ] Profile independence validated
 * [ ] Duplicate account prevention tested
@@ -282,9 +278,9 @@
 
 ## 15. Open Questions
 
-* Allowed `duration_minutes` set: fixed list or any multiple of 15?
-* Should tutors be able to rename the default LessonType title during onboarding?
-* Do we need locale/i18n from day one?
+* Allowed `duration_minutes` set: fixed list or any multiple of 15? Answer: fixed list
+* Should tutors be able to rename the default LessonType title during onboarding? Answer: Yes
+* Do we need locale/i18n from day one? Answer: Yes
 
 ---
 
