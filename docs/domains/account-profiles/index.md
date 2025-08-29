@@ -22,7 +22,7 @@ This domain handles user authentication, multi-role profiles (Tutor/Student), an
 - **[ADRs Directory](./adrs/)** - Architecture Decision Records
 
 ### Diagrams
-- **[ERD](./diagrams/erd.mmd)** - Entity Relationship Diagram (coming soon)
+- **[ERD](./diagrams/erd.mmd)** - Entity Relationship Diagram
 
 ## Domain Model
 

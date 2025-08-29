@@ -32,6 +32,8 @@
 
 ## 2. Architecture & Data Model (Rails 8 / Postgres)
 
+**Entity Relationship Diagram:** [ERD](./diagrams/erd.mmd)
+
 ### Entities
 
 * `User` — account (email, encrypted_password, timezone, preferences)

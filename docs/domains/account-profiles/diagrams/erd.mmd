@@ -1,0 +1,57 @@
+erDiagram
+    USER {
+        uuid id PK
+        citext email UK
+        string encrypted_password
+        string reset_password_token UK
+        datetime reset_password_sent_at
+        datetime remember_created_at
+        string timezone
+        jsonb preferences
+        datetime created_at
+        datetime updated_at
+    }
+
+    TUTOR {
+        uuid id PK
+        uuid user_id FK,UK
+        string display_name
+        text bio
+        string timezone
+        jsonb settings
+        uuid default_lesson_type_id FK
+        datetime created_at
+        datetime updated_at
+    }
+
+    STUDENT {
+        uuid id PK
+        uuid user_id FK,UK
+        string first_name
+        string last_name
+        jsonb settings
+        datetime created_at
+        datetime updated_at
+    }
+
+    LESSON_TYPE {
+        uuid id PK
+        uuid tutor_id FK
+        string title
+        integer duration_minutes
+        boolean active
+        datetime created_at
+        datetime updated_at
+    }
+
+    USER ||--o| TUTOR : "has_one"
+    USER ||--o| STUDENT : "has_one"
+    TUTOR ||--o{ LESSON_TYPE : "has_many"
+    TUTOR ||--o| LESSON_TYPE : "default_lesson_type"
+
+    %% Relationships explained:
+    %% - A User can have 0 or 1 Tutor profile
+    %% - A User can have 0 or 1 Student profile
+    %% - A Tutor can have many LessonTypes
+    %% - A Tutor has an optional reference to a default LessonType
+    %% - LessonType belongs to a Tutor (required)
