@@ -2,15 +2,19 @@
 
 class Users::RegistrationsController < Devise::RegistrationsController
   skip_before_action :authenticate_user!
-  
+
   # GET /users/sign_up
   def new
     # Store the role from URL parameter in session for after signup
-    if params[:role].present? && ['tutor', 'student'].include?(params[:role])
+    if params[:role].present? && [ "tutor", "student" ].include?(params[:role])
       session[:selected_role] = params[:role]
     end
-    
-    super
+
+    build_resource
+    # Set a default timezone if not already set
+    resource.timezone ||= "America/Bogota"
+    yield resource if block_given?
+    respond_with resource
   end
 
   # POST /users
@@ -24,11 +28,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def after_sign_up_path_for(resource)
     # Check if user has a role selected and force profile completion
     selected_role = session[:selected_role]
-    
-    if selected_role == 'tutor' && resource.tutor.blank?
+
+    if selected_role == "tutor" && resource.tutor.blank?
       session.delete(:selected_role) # Clear the role from session
       new_onboarding_tutor_path
-    elsif selected_role == 'student' && resource.student.blank?
+    elsif selected_role == "student" && resource.student.blank?
       session.delete(:selected_role) # Clear the role from session
       new_onboarding_student_path
     else
