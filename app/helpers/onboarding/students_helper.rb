@@ -1,0 +1,2 @@
+module Onboarding::StudentsHelper
+end

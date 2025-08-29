@@ -1,0 +1,66 @@
+<div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-md w-full space-y-8">
+    <div>
+      <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
+        Create Your Student Profile
+      </h2>
+      <p class="mt-2 text-center text-sm text-gray-600">
+        Start your learning journey
+      </p>
+    </div>
+
+    <%= form_with model: @student, url: onboarding_students_path, local: true, class: "mt-8 space-y-6" do |f| %>
+      <% if @student.errors.any? %>
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+          <h4 class="font-medium">Please fix the following errors:</h4>
+          <ul class="mt-2 list-disc pl-5">
+            <% @student.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="space-y-4">
+        <div>
+          <%= f.label :first_name, class: "block text-sm font-medium text-gray-700" %>
+          <%= f.text_field :first_name, required: true,
+                           class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500",
+                           placeholder: "Your first name" %>
+        </div>
+
+        <div>
+          <%= f.label :last_name, class: "block text-sm font-medium text-gray-700" %>
+          <%= f.text_field :last_name, required: true,
+                           class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500",
+                           placeholder: "Your last name" %>
+        </div>
+      </div>
+
+      <div class="bg-green-50 border border-green-200 rounded-md p-4">
+        <div class="flex">
+          <div class="flex-shrink-0">
+            <svg class="h-5 w-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+            </svg>
+          </div>
+          <div class="ml-3">
+            <p class="text-sm text-green-700">
+              Once you complete your profile, you'll have access to your student dashboard 
+              where you can manage your learning preferences and track your progress.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <%= f.submit "Create Student Profile", 
+                     class: "group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
+      </div>
+    <% end %>
+
+    <div class="text-center">
+      <%= link_to "Back to Home", root_path, class: "text-indigo-600 hover:text-indigo-500" %>
+    </div>
+  </div>
+</div>
