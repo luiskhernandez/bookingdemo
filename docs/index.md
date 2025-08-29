@@ -6,25 +6,29 @@ This document explains the organization and purpose of the documentation folder 
 
 The `docs/` folder contains all project documentation organized by purpose and domain, following a domain-driven structure that aligns with the application architecture.
 
-## Folder Structure
+## Standard Domain Structure
 
-### `/docs/context/`
-Contains contextual information and background documentation for the project.
+Each domain should follow this standardized structure:
 
-### `/docs/dev/`
-Development-focused documentation including setup guides, development tools, and technical references.
+```
+docs/
+└── domains/
+    └── {domain-name}/
+        ├── index.md                 # Domain map (start here)
+        ├── prd.md                   # Product Requirements Document
+        ├── plan.md                  # Tech Implementation Plan (TIP/Spec merged)
+        ├── tasks.md                 # Task breakdown (checklist)
+        ├── adrs/                    # Architecture Decision Records
+        │   ├── 0001-decision-title.md
+        │   └── 0002-another-decision.md
+        ├── guides/                  # Implementation guides and references
+        │   └── example-guide.md
+        └── diagrams/                # Visual documentation
+            └── erd.mmd              # Entity Relationship Diagrams, etc.
+```
 
-**Files:**
-- `tailwind-installation-guide.md` - Guide for setting up Tailwind CSS in the project
-
-### `/docs/domains/`
-Domain-driven documentation organized by business domains. Each domain contains its own comprehensive documentation structure.
-
-#### `/docs/domains/account-profiles/`
-Documentation for the account-profiles domain, which handles user accounts and profile management.
-
-**Structure:**
-- `index.md` - Domain overview and navigation
+**Current Structure:**
+- `index.md` - Domain overview and navigation *(start here)*
 - `prd.md` - Product Requirements Document
 - `plan.md` - Implementation plan and strategy
 - `/adrs/` - Architecture Decision Records
@@ -38,9 +42,6 @@ Documentation for the account-profiles domain, which handles user accounts and p
   - `task-001-db-extensions.md` - Database extensions setup
   - `task-003-user-model.md` - User model implementation
   - `task-009-tutor-onboarding.md` - Tutor onboarding workflow
-
-### `/docs/prompt.md`
-Project-specific prompts and AI assistant instructions.
 
 ### `/docs/setup/`
 Project setup and configuration documentation.
